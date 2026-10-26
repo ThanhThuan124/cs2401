@@ -7,6 +7,7 @@ from eapp.models import Category, Product
 admin = Admin(app=app, name='eCommerce Admin')
 
 class ProductView(ModelView):
+
     column_list = ['id', 'name', 'price', 'active']
     can_export = True
     column_searchable_list = ['name']
@@ -18,7 +19,9 @@ class ProductView(ModelView):
 
 class StatsView(BaseView):
     @expose('/')
-    def __index__(self):
+    def index(self):
         return self.render('admin/stats.html')
-admin.add_view(ModelView(Category, db.session))
-admin.add_view(ProductView(Product, db.session))
+
+admin.add_view(ModelView(Category, db))
+admin.add_view(ProductView(Product, db))
+admin.add_view(StatsView(name='Thong Ke'))
